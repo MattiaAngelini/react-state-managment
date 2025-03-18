@@ -1,5 +1,4 @@
 import { useState } from 'react'
-
 import './App.css'
 
 function App() {
@@ -12,18 +11,16 @@ function App() {
   function increment(){
     setCount(count + 1)
   }
-
   function decrease(){
     setCount(count-1)
   }
-
   function showResult(){
     setIsActive(true)
   }
 
   return (
     <>
-     {/* COUNTER */}
+     {/* TEST COUNTER */}
      <h3 className='text-center'>Counter</h3>
       <section className='d-flex justify-content-center align-items-center'>
         <div className='d-flex gap-5'>
@@ -34,7 +31,7 @@ function App() {
         </div>
       </section>
       
-      {/* FORM REGISTRAZIONE */}
+      {/* TEST FORM REGISTRAZIONE */}
       <h3 className='text-center'>FORM</h3>
       <section >
       <div  className={`${!isActive ? 'd-block text-center d-flex justify-content-center p-5' : 'd-none'}`}>
