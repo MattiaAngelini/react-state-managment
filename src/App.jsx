@@ -1,68 +1,76 @@
-import { useState } from 'react'
+import { useState, useReducer } from 'react'
 import './App.css'
 
-function App() {
-  //COUNTER
-  const [count, setCount] = useState(0)
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [isActive, setIsActive] = useState(false);
+// REDUCER
+function counterReducer(state,action){
+  switch (action.type) {
+    case "INCREMENT":
+      return state + 1;
+    case "DECREMENT":
+      return state - 1;
+    default:
+      return state;
+  }
+}
 
+function App() {
+  //COUNTER useState
+  const [count, setCount] = useState(0)
   function increment(){
     setCount(count + 1)
   }
   function decrease(){
     setCount(count-1)
   }
-  function showResult(){
-    setIsActive(true)
+
+  //COUNTER useReducer
+  //Creo funzione reducer, che ha delle azioni in base ad un 'type' - gestito con switch/case.
+  //Creo funzioni da applicare a due diversi bottoni del dom, che gestiscono stesso stato ma con azioni diverse, 
+  //Il tipo di azioni specificato è gestito con il 'type' scritto nel dispatch. (inizializzati nel reducer)
+
+  const [counter2, dispatchCountReducer] = useReducer(counterReducer, 0 )
+
+  function increment2(){
+    dispatchCountReducer({type:'INCREMENT'})
+  }
+
+  function decrement2(){
+    dispatchCountReducer({type: 'DECREMENT'})
   }
 
   return (
     <>
-     {/* TEST COUNTER */}
-     <h3 className='text-center'>Counter</h3>
-      <section className='d-flex justify-content-center align-items-center'>
+     {/* COUNTER con UseState */}
+     <h3 className='text-center'>Counter useEffect</h3>
+      <div className='d-flex justify-content-center align-items-center'>
         <div className='d-flex gap-5'>
           
           <button onClick={decrease}>-</button>
           <span>{count}</span>
           <button onClick={increment}>+</button>
         </div>
-      </section>
-      
-      {/* TEST FORM REGISTRAZIONE */}
-      <h3 className='text-center'>FORM</h3>
-      <section >
-      <div  className={`${!isActive ? 'd-block text-center d-flex justify-content-center p-5' : 'd-none'}`}>
-        <form action="">
-            <input 
-            value={name} type="text" 
-            required
-            maxLength={10}
-            placeholder='Nickname'
-            onChange={(e) => setName(e.target.value)}
-            />
-            <input 
-            value={email} type="email" 
-            required
-            placeholder='e-mail'
-            onChange={(e) => setEmail(e.target.value)}
-            />
-            <input 
-            type="password" 
-            placeholder='password'
-            />
-        </form>
-      <button onClick={showResult} className='btn btn-primary mx-2'> REGISTRATI </button>
       </div>
 
-       <div 
-          className={`${isActive ? 'd-block text-center p-5' : 'd-none'}`}>
-          Complimenti {name} ti sei registrato!, controlla la mail: {email}, troverai la tua password! 
+     {/* COUNTER con Reducer */}
+     <h3 className='text-center'>Counter useReducer</h3>
+      <div className='d-flex justify-content-center align-items-center'>
+        <div className='d-flex gap-5'>
+          
+          <button onClick={decrement2}>-</button>
+          <span>{counter2}</span>
+          <button onClick={increment2}>+</button>
+        </div>
       </div>
-      </section>
-      
+
+      {/* COUNTER con Redux 
+     <h3 className='text-center'>Counter Redux</h3>
+      <div className='d-flex justify-content-center align-items-center'>
+        <div className='d-flex gap-5'>          
+          <button onClick={decrease}>-</button>
+          <span>{count}</span>
+          <button onClick={increment2}>+</button>
+        </div>
+      </div>*/}
     </>
   )
 }
