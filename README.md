@@ -1,2 +1,2 @@
 # React + Vite
-Esercitazione per studio di React, creazione di un counter e un form di registrazione. 
+Esercitazione per studio di React, gestione degli stati utilizzando useState, useReducer e Redux.
